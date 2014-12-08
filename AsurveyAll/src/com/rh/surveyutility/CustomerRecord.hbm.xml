@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.rh.surveydto.CustomerRecord" table="wbs_cust_info">
+		<id name="cust_id" type="integer">
+			<column name="Cust_Id"/>
+			<generator class="increment"/>
+		</id>
+		<property name="acc_type">
+			<column name="Acc_Type"/>
+		</property>
+		<property name="f_name">
+			<column name="F_Name"/>
+		</property>
+		<property name="l_name">
+			<column name="L_Name"/>
+		</property>
+		<property name="msisdn" type="integer">
+			<column name="MSISDN"/>
+		</property>
+		<property name="emailid">
+			<column name="emailId"/>
+		</property>
+		<property name="password">
+		    <column name="Password"></column>
+		</property>
+		<property name="gender">
+		    <column name="Gender"></column>
+		</property>
+				<property name="marital_status">
+		    <column name="Marital_Status"></column>
+		</property>
+				<property name="company_name">
+		    <column name="Company_Name"></column>
+		</property>
+				<property name="designation">
+		    <column name="Designation"></column>
+		</property>
+				<property name="business_type">
+		    <column name="Business_Type"></column>
+		</property>
+				<property name="address_1">
+		    <column name="Address_1"></column>
+		</property>
+				<property name="address_2">
+		    <column name="Address_2"></column>
+		</property>
+				<property name="locality">
+		    <column name="Locality"></column>
+		</property>
+				<property name="city">
+		    <column name="City"></column>
+		</property>
+				<property name="country">
+		    <column name="Country"></column>
+		</property>
+				<property name="pin_code">
+		    <column name="Pin_Code"></column>
+		</property>
+	</class>
+</hibernate-mapping>

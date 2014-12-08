@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.rh.surveydto.Targetbaseinfo" table="wbs_camp_target_base_info">
+		<id name="camp_id">
+			<column name="Camp_Name"/>
+			<generator class="assigned"/>
+		</id>
+		<property name="gender">
+			<column name="Gender"/>
+		</property>
+		<property name="age">
+			<column name="Age"/>
+		</property>
+		<property name="occupation">
+			<column name="Occupation"/>
+		</property>
+		<property name="location">
+			<column name="Location"/>
+		</property>
+		<property name="city">
+			<column name="City"/>
+		</property>
+		<property name="annual_income">
+			<column name="Annual_Income"/>
+		</property>
+	</class>
+</hibernate-mapping>
