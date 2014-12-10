@@ -89,7 +89,7 @@ public class SurveyCustInfoController extends HttpServlet
 		
 			CustomerRecord customerRecord=new CustomerRecord(cust_id, acc_type, f_name, l_name, msisdn, emailid, password, gender, marital_status, company_name, designation, business_type, 
 					address_1, address_2, locality, city, country, pin_code);
-			System.out.println("befor SurveyJavaBean");
+			System.out.println("before SurveyJavaBean");
 			/*SurveyRegistrationJavaBean javabean=new SurveyRegistrationJavaBean();
 			boolean status=javabean.registerCustomerRecord(customerRecord);*/
 			req.setAttribute("EMP_DATA",customerRecord);

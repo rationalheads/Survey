@@ -15,8 +15,8 @@ $("#qualification").hide();
 $("#qualification1").hide();
 $("#qualification2").hide();
 
-$("input[name='flag']").click(setDisplay);
-$("input[name='flag1']").click(setDisplay1);
+$("input[name='level_flag']").click(setDisplay);
+$("input[name='qualify_cretirion']").click(setDisplay1);
 $("button[type='reset']").click(function() {
     setTimeout(setDisplay, 1);  // setDisplay after the form is reset
     setTimeout(setDisplay1, 1);  // setDisplay after the form is reset
@@ -24,21 +24,21 @@ $("button[type='reset']").click(function() {
 });
 
 function setDisplay() {
-    var val = $("input:radio[name=flag]:checked").val();
-    if (val === 'approve') {
+    var val = $("input:radio[name=level_flag]:checked").val();
+    if (val === '1') {
         $("#level").show();
-    } else if (!val || val === 'reject') {
+    } else if (!val || val === '0') {
         $("#level").hide();
     }
 }
 
 function setDisplay1() {
-    var val = $("input:radio[name=flag1]:checked").val();  
-    if (val === 'approve') {
+    var val = $("input:radio[name=qualify_cretirion]:checked").val();  
+    if (val === '1') {
     	$("#qualification").show();
         $("#qualification1").show();
         $("#qualification2").show();
-	} else if (!val || val === 'reject') {
+	} else if (!val || val === '0') {
 		$("#qualification").hide();
         $("#qualification1").hide();
         $("#qualification2").hide();
@@ -73,6 +73,7 @@ function setDisplay1() {
 		</div>
 	</div>
 	<div id="contents">
+	<form  method="post" action="CreateSurveyController">
 	<h2>Create Survey</h2>
 		<div id="content-container1">
           <div class="wrapper">
@@ -81,49 +82,49 @@ function setDisplay1() {
             <tr><td><label>Customer Id</label><br></td></tr>
             
             <tr><td><label>Campaign Name</label></td>
-            <td><input type="text" name="name" id="name" placeholder="campaign name" maxlength="5"/></td></tr>
+            <td><input type="text" name="camp_name" id="name" placeholder="campaign name" maxlength="5"/></td></tr>
             
             <tr><td style="padding-bottom: 9%;"><label>Campaign Image</label></td>
             <td><img src="" height="100" width="200" alt="Image Preview"><br>
-            <input type="file" name="name" id="name" onchange="previewFile()">
+            <input type="file" name="camp_image" id="name" onchange="previewFile()">
             </td></tr>
             
             <tr><td><label>Campaign Id</label><br></td></tr>
             
             <tr><td><label>Start Page Text</label><br></td>
             <td><textarea onKeyDown="textCounter(this,255);" onKeyUp="textCounter(this,'startpage' ,255)"
-            class="scanwid" name="start" id="start" rows="2" cols="58" maxlength="255"></textarea>
+            class="scanwid" name="camp_st_page_text" id="start" rows="2" cols="58" maxlength="255"></textarea>
             <input readonly type="text" id='startpage' name="startpage" size="3" maxlength="3" value="255"></td></tr>
             
             <tr><td><label>Campaign Type</label></td>
-            <td><select>
+            <td><select name="camp_type">
                       <option value="volvo">Market Survey</option>
                       <option value="saab">Education Survey</option>
                       <option value="opel">Employee Survey</option>
                       <option value="audi">Empty Survey</option></select><br></td></tr>
                       
             <tr ><td><label>Level Flag</label><br></td>
-            <td><label><input type="radio" value="approve" id="radioOne" name="flag" onclick="" />Yes</label>
-            <label><input type="radio" value="reject" id="radioTwo" name="flag" onclick="" checked="checked" />No</label></td></tr> 
+            <td><label><input type="radio" value="1" id="radioOne" name="level_flag" onclick="" />Yes</label>
+            <label><input type="radio" value="0" id="radioTwo" name="level_flag" onclick="" checked="checked" />No</label></td></tr> 
             
 			<tr id="level"><td><label>Default Level</label></td>
-			<td><input type="number" name="name" max="5" min="1"/></td></tr>
+			<td><input type="number" name="default_level" max="5" min="1"/></td></tr>
 			
 			<tr><td><label>Qualification Criterion</label><br></td>
-            <td><label><input type="radio" value="approve" id="radioOne" name="flag1" onchange=""/>Yes</label> 
-			<label><input type="radio" value="reject" id="radioTwo" name="flag1" onchange="" checked/>No</label></td></tr>
+            <td><label><input type="radio" value="1" id="radioOne" name="qualify_cretirion" onchange=""/>Yes</label> 
+			<label><input type="radio" value="0" id="radioTwo" name="qualify_cretirion" onchange="" checked/>No</label></td></tr>
 			
 			<tr id="qualification" ><td><label>Qualification Level</label></td>
-			<td><input type="number" name="qualification" max="5" min="1"/></td></tr>
+			<td><input type="number" name="qualify_q_count" max="5" min="1"/></td></tr>
 			
 			<tr id="qualification1" ><td><label>Success Text</label></td>
 			<td><textarea onKeyDown="textCounter(this,255);" onKeyUp="textCounter(this,'successtext' ,255)"
-            class="scanwid" name="success" id="success" rows="2" cols="58" maxlength="255"></textarea>
+            class="scanwid" name="success_text" id="success" rows="2" cols="58" maxlength="255"></textarea>
             <input readonly type="text" id='successtext' name="successtext" size="3" maxlength="3" value="255"></td></tr>
             
 			<tr id="qualification2" ><td><label>Failure Text</label></td>
 			<td><textarea onKeyDown="textCounter(this,255);" onKeyUp="textCounter(this,'failuretext' ,255)"
-            class="scanwid" name="failure" id="failure" rows="2" cols="58" maxlength="255"></textarea>
+            class="scanwid" name="failure_text" id="failure" rows="2" cols="58" maxlength="255"></textarea>
             <input readonly type="text" id='failuretext' name="failuretext" size="3" maxlength="3" value="255"></td></tr>
 			
              </table>
@@ -134,7 +135,7 @@ function setDisplay1() {
            <button type="reset" class="submit" value="Reset" onclick="">Reset</button>
            <button type="submit" class="submit" value="Cancel">Cancel</button>
            </div>
-		
+	</form>
 	</div>
 	<div id="footer">
 		<div class="clearfix">

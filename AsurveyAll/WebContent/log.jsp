@@ -131,7 +131,7 @@ function confirmForm(form){
 					<%
 						}
 					%>
-	<form  method="post" action="http://192.168.0.109:8080/survey_rh/SurveyCustInfoController?action=log">
+	<form  method="post" action="SurveyCustInfoController?action=log">
 	<label for="email">Email:</label> <br /> 
 	<input type="text" name="f_name" id="email" /><br/> 
 	<label for="password">Password:</label><br/> 
@@ -140,7 +140,7 @@ function confirmForm(form){
 	</form>
 	</div>
 		<div id="register">
-		<form id="registration" method="post" action="http://192.168.0.109:8080/survey_rh/SurveyCustInfoController?action=reg" 
+		<form id="registration" method="post" action="SurveyCustInfoController?action=reg" 
 					onsubmit="return confirmForm(this);" >
 					
 		<div class="accounttype">
