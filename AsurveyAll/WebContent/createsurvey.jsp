@@ -1,5 +1,15 @@
 <!DOCTYPE HTML>
-<!-- Website template by freewebsitetemplates.com -->
+<%@page import="com.rh.surveydto.CampaignInfo"%>
+<%@ page import="com.rh.surveydto.CustomerRecord" session="true" contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="/errorpage.jsp" %>
+<% String cid=session.getAttribute("cid").toString();
+
+if(cid != null) {
+%>
+<%
+ // CustomerRecord customerRecord=(CustomerRecord)request.getAttribute("CDATA"); 
+ CampaignInfo campaignInfo=(CampaignInfo)request.getAttribute("CAMP_DATA");
+ 
+%>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -47,7 +57,6 @@ function setDisplay1() {
 });
 </script>
 <body>
-<form action="sections.html">
 	<div id="header">
 		<div>
 			<div class="logo">
@@ -73,13 +82,14 @@ function setDisplay1() {
 		</div>
 	</div>
 	<div id="contents">
-	<form  method="post" action="CreateSurveyController">
+	<form  method="post" action="http://192.168.0.108:8080/survey_rh/CreateSurveyController" enctype="multipart/form-data">
 	<h2>Create Survey</h2>
 		<div id="content-container1">
           <div class="wrapper">
             
             <table style="width: 98%">
-            <tr><td><label>Customer Id</label><br></td></tr>
+            <tr><td><label>Customer Id</label>
+            </td><td><input type="text" readonly="readonly" value="<%= campaignInfo.getCust_id()%>"/></td></tr>
             
             <tr><td><label>Campaign Name</label></td>
             <td><input type="text" name="camp_name" id="name" placeholder="campaign name" maxlength="5"/></td></tr>
@@ -131,7 +141,7 @@ function setDisplay1() {
           </div>
           </div>
           <div class="btn">
-           <a href="sections.html"><button type="submit" class="submit" value="Save">Save</button></a>
+           <a href="sections.jsp"><button type="submit" class="submit" value="Save">Save</button></a>
            <button type="reset" class="submit" value="Reset" onclick="">Reset</button>
            <button type="submit" class="submit" value="Cancel">Cancel</button>
            </div>
@@ -147,7 +157,6 @@ function setDisplay1() {
 			</p>
 		</div>
 	</div>
-	</form>
 </body>
 <script>
    function previewFile(){
@@ -178,3 +187,10 @@ function setDisplay1() {
 	}
   </script>
 </html>
+<%
+}
+else
+{
+ response.sendRedirect("./SurveyCustInfoController?action=log");
+}
+%>

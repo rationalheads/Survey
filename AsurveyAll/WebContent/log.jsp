@@ -133,10 +133,11 @@ function confirmForm(form){
 					%>
 	<form  method="post" action="SurveyCustInfoController?action=log">
 	<label for="email">Email:</label> <br /> 
-	<input type="text" name="f_name" id="email" /><br/> 
+	<input type="text" name="f_name" id="email" pattern="\w.*+\@+[a-z]+\.[a-z]{2,7}" title="Example:abc@yahoo.com"/><br/> 
 	<label for="password">Password:</label><br/> 
 	<input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{5,}" id="password" /> <br />
-	<br/><input type="submit" value="Login">
+	<p style="font-size: small;;"><a href="forgotpassword.html">forgot password?</a></p>
+	<input type="submit" value="Login">
 	</form>
 	</div>
 		<div id="register">
