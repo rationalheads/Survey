@@ -34,6 +34,7 @@
 		</div>
 	</div>
 	<div id="contents">
+	<form method="post" action="">
 	   <h2>Sections</h2>
 			<div id="content-container1">
 			<table>
@@ -44,9 +45,9 @@
 					<a class="myButton" onclick="add()">Add</a>
 					<a class="myButton" onclick="removeEl(this)">Remove</a></td></tr>
 					<tr><td><label>Section Name</label></td>
-					<td><input type="text" name="name" placeholder="section name"/></td><td></td><td></td><td></td></tr>
+					<td><input type="text" name="section_name" placeholder="section name"/></td><td></td><td></td><td></td></tr>
 					<tr><td style="padding-bottom: 75px"><label>Section Image</label></td>
-					<td><input type="file" name="name" id="name" onchange="readURL(this)">
+					<td><input type="file" name="section_image" id="name" onchange="readURL(this, 'image')">
 					<img src="" id="image" height="100" width="200"  alt="Image Preview"></td>
 					<td></td><td></td><td></td></tr>
 					</table>
@@ -55,6 +56,7 @@
 					<button type="submit" value="Cancel">Cancel</button>&nbsp;&nbsp;&nbsp;
 					<a href="questions.html"><button type="submit" value="Next">Next</button></a>
 				</div>
+				</form>
 		</div>
 	<div id="footer">
 		<div class="clearfix">
@@ -85,7 +87,7 @@ var i=0;
 
 			var divIdName = 'my' + num + 'Div';
 
-			newdiv.setAttribute('id', divIdName);
+			//newdiv.setAttribute('id', divIdName);
 
 			newdiv.innerHTML = '<td><label>Section Id</label></td><td></td>'
 				+ '</td><td></td><td></td>'
@@ -94,19 +96,19 @@ var i=0;
 				+ '<a class="myButton" onclick="removeEl(this)">Remove</a></td>';
 
 			ni.appendChild(newdiv);
-			
+
 			var newdiv1 = document.createElement('tr');
-			
+
 			newdiv1.innerHTML = '<td><label>Section Name</label></td>'
-			+ '<td><input type="text" name="name" placeholder="section name"/></td><td></td><td></td><td></td>';
+			+ '<td><input type="text" name="section_name" placeholder="section name"/></td><td></td><td></td><td></td>';
 
 			ni.appendChild(newdiv1);
 			
 			var newdiv2 = document.createElement('tr');
 				
 			newdiv2.innerHTML = '<td style="padding-bottom: 75px"><label>Section Image</label></td>'
-				+ '<td><input type="file" name="name" id="name" onchange="readURL(this)">'
-				+ '<img src="" id="image" height="100" width="200"  alt="Image Preview"></td>'
+				+ '<td><input type="file" name="section_image" id="name" onchange="readURL(this, \''+divIdName+'\')">'
+				+ '<img src="" id="'+divIdName+'" height="100" width="200"  alt="Image Preview"></td>'
 				+ '<td></td><td></td><td></td>';
 
 			ni.appendChild(newdiv2);
@@ -122,11 +124,12 @@ var i=0;
 
 		}
 		
-		function readURL(input) {
+		function readURL(input, id) {
+			var id_input = '#' + id;
 		      if (input.files && input.files[0]) {
 		       var reader = new FileReader();
 		       reader.onload = function(e) {
-		           $('#image').attr('src', e.target.result);
+		           $(id_input).attr('src', e.target.result);
 		       }
 		       reader.readAsDataURL(input.files[0]);
 		       }
