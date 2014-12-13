@@ -3,7 +3,6 @@ package com.rh.surveydao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.fileupload.FileItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -67,7 +66,8 @@ public class SurveyRegistrationDao
 	
 	public boolean insertCustomerRecord(CustomerRecord customerRecord)
 	{
-		boolean status=false;	
+		boolean status=false;
+		
 		Session session=null;
 				
 		try

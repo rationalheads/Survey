@@ -13,23 +13,22 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/c3p0-0.9.1.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/ehcache-1.2.3.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate-cglib-repack-2.1_3.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate-testing.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate3.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/javassist-3.4.GA.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jboss-cache-1.4.1.GA.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jbosscache-core-2.1.1.GA.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/oscache-2.1.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/proxool-0.8.3.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/slf4j-api-1.4.2.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/slf4j-simple-1.4.2.jar"/>
-	<classpathentry kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/swarmcache-1.0RC2.jar"/>
-	<classpathentry kind="lib" path="/home/ashu/Downloads/org.apache.commons.fileupload.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/c3p0-0.9.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/ehcache-1.2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate-cglib-repack-2.1_3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate-testing.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/hibernate3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/javassist-3.4.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jboss-cache-1.4.1.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jbosscache-core-2.1.1.GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/jta-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/oscache-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/proxool-0.8.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/slf4j-api-1.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/slf4j-simple-1.4.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/survey_rh/WebContent/WEB-INF/lib/swarmcache-1.0RC2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

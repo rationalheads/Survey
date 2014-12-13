@@ -15,7 +15,7 @@
 		<property name="l_name">
 			<column name="L_Name"/>
 		</property>
-		<property name="msisdn" type="integer">
+		<property name="msisdn">
 			<column name="MSISDN"/>
 		</property>
 		<property name="emailid">

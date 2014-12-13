@@ -7,7 +7,7 @@ public class CustomerRecord
 	private String acc_type;
 	private String f_name;
 	private String l_name;
-	private int msisdn;
+	private long msisdn;
 	private String emailid;
 	private String password;
 	private String gender;
@@ -25,7 +25,7 @@ public class CustomerRecord
 	public CustomerRecord()
 	{		
 	}
-	public CustomerRecord(int cust_id, String acc_type, String f_name,	String l_name, int msisdn, String emailid, String password,	String gender, String marital_status,
+	public CustomerRecord(int cust_id, String acc_type, String f_name,	String l_name, long msisdn, String emailid, String password,	String gender, String marital_status,
 			String company_name, String designation, String business_type, String address_1,	String address_2, String locality, String city, String country, String pin_code)
 	{
 		super();
@@ -72,10 +72,10 @@ public class CustomerRecord
 	public void setL_name(String l_name) {
 		this.l_name = l_name;
 	}
-	public int getMsisdn() {
+	public long getMsisdn() {
 		return msisdn;
 	}
-	public void setMsisdn(int msisdn) {
+	public void setMsisdn(long msisdn) {
 		this.msisdn = msisdn;
 	}
 	public String getEmailid() {

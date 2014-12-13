@@ -9,13 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.rh.surveydto.CampaignInfo;
 import com.rh.surveydto.CustomerRecord;
+import com.rh.surveyjavabean.CreateCampaignJavaBean;
 import com.rh.surveyjavabean.SurveyRegistrationJavaBean;
 
 public class SurveyCustInfoController extends HttpServlet
 {
 	
 	private static final long serialVersionUID = 1L;
+	int camp_id;
 
 	public void init(ServletConfig config) throws ServletException	
 	{
@@ -52,11 +55,21 @@ public class SurveyCustInfoController extends HttpServlet
 			SurveyRegistrationJavaBean javabean=new SurveyRegistrationJavaBean();
 			boolean status=javabean.validateCustomerRecord(customerRecord);
 			if(status)
-			{
+			{				
 				HttpSession ses=req.getSession(true);
 				ses.setAttribute("cid", customerRecord.getCust_id());
-				req.setAttribute("CDATA",customerRecord);				
-				getServletConfig().getServletContext().getRequestDispatcher("/LoginSuccess.jsp").forward(req,res);
+				/*req.setAttribute("CDATA",customerRecord);*/
+				CampaignInfo campaignInfo = new CampaignInfo(camp_id);
+				campaignInfo.setCamp_id(camp_id);
+				CreateCampaignJavaBean campaignJavaBean=new CreateCampaignJavaBean();
+				boolean status1=campaignJavaBean.validateCampaignInfo(campaignInfo);
+				System.out.println("status");
+				if(status1==true)
+				{
+					System.out.println("status1");
+					req.setAttribute("CAMP_DATA",campaignInfo);
+					getServletConfig().getServletContext().getRequestDispatcher("/createsurvey.jsp").forward(req,res);
+				}
 			}
 			else
 			{
@@ -70,9 +83,7 @@ public class SurveyCustInfoController extends HttpServlet
 			String acc_type=req.getParameter("acc_type");
 			String f_name=req.getParameter("f_name");
 			String l_name=req.getParameter("l_name");
-			String ms=req.getParameter("msisdn");
-			String ms1 = ms.substring(0, ms.lastIndexOf(""));
-			int msisdn=Integer.parseInt(ms1);
+			Long msisdn=Long.parseLong(req.getParameter("msisdn"));		
 			String emailid=req.getParameter("emailid");
 			String password=req.getParameter("password");
 			String gender=req.getParameter("gender");
@@ -89,19 +100,19 @@ public class SurveyCustInfoController extends HttpServlet
 		
 			CustomerRecord customerRecord=new CustomerRecord(cust_id, acc_type, f_name, l_name, msisdn, emailid, password, gender, marital_status, company_name, designation, business_type, 
 					address_1, address_2, locality, city, country, pin_code);
-			System.out.println("before SurveyJavaBean");
-			/*SurveyRegistrationJavaBean javabean=new SurveyRegistrationJavaBean();
-			boolean status=javabean.registerCustomerRecord(customerRecord);*/
-			req.setAttribute("EMP_DATA",customerRecord);
-			getServletConfig().getServletContext().getRequestDispatcher("/test.jsp").forward(req,res);
-			/*if(status==true)
+			System.out.println("befor SurveyJavaBean");
+			SurveyRegistrationJavaBean javabean=new SurveyRegistrationJavaBean();
+			boolean status=javabean.registerCustomerRecord(customerRecord);
+			/*req.setAttribute("EMP_DATA",customerRecord);
+			getServletConfig().getServletContext().getRequestDispatcher("/test.jsp").forward(req,res);*/
+			if(status==true)
 			{
 				getServletConfig().getServletContext().getRequestDispatcher("/RegistrationSuccess.jsp").forward(req,res);
 			}
 			else
 			{				
 				getServletConfig().getServletContext().getRequestDispatcher("/RegistrationFailure.jsp").forward(req,res);		
-			}*/
+			}
 		}
 	}
 

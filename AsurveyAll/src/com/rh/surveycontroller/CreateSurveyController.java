@@ -2,138 +2,123 @@ package com.rh.surveycontroller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.rh.surveydto.CampaignInfo;
 import com.rh.surveyjavabean.CreateCampaignJavaBean;
 
-/**
- * Servlet implementation class CreateSurveyController
- */
-@WebServlet("/CreateSurveyController")
-public class CreateSurveyController extends HttpServlet {
+public class CreateSurveyController extends HttpServlet 
+{
+	HashMap<String, String> hm = new HashMap<String, String>();
 	private static final long serialVersionUID = 1L;
+	private final String UPLOAD_DIRECTORY = "C:/data";
+	String custid;
+	String campid;
+	String campimage;
+	String campname;    					
+	String campheader;
+	String campstpagetext;
+	String camptype;
+	String levelflag;
+	String defaultlevel;
+	String qualifycretirion;
+	String qualifyqcount;
+	String successtext;
+	String failuretext;	
+   @Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   {
+	 String action=request.getParameter("action");
+	 HttpSession ses= request.getSession();
+	 custid =ses.getAttribute("cid").toString();
+	 campid="001";
 
-	private boolean isMultipart;
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-	{
-		res.setContentType("text/html");
-		
-		String action=req.getParameter("action");
+	//String campid =request.getParameter("camp_id").toString();
+	 
+	 if(action.equals("cre"))
+	 {
+	   if(ServletFileUpload.isMultipartContent(request)==true)
+	   {		
+		  try {
+               List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+               for(FileItem item : multiparts)
+               {            	   	
+            	   
+                   if(!item.isFormField())
+                   {                                              
+                       String fname = new File(item.getName()).getName();                                             
+                       System.out.println(fname);
+                       String fileExtention =   fname.substring(fname.lastIndexOf('.'));
+                       String newfname = new StringBuffer(String.valueOf("Img_")).append(custid).append('_').append(campid).toString();
+                       campimage = new StringBuffer().append(newfname).append(fileExtention).toString();                        
+                       File uploadfile =  new File(UPLOAD_DIRECTORY + File.separator + campimage);
+                       item.write(uploadfile);
+                   }
+                   else
+                   {
+                	   hm.put(item.getFieldName(), item.getString());                	   
+                   }
+               } 
+               	int camp_id=Integer.parseInt(campid);
+               	int cust_id=Integer.parseInt(custid);
+               	String camp_image=campimage;
+          	 	String camp_name = (String)hm.get("campname");
+          	 	String camp_header= (String)hm.get("campheader");
+          	 	String camp_st_page_text= (String)hm.get("campstpagetext");
+          	 	String camp_type= (String)hm.get("camptype");
+          	 	String level_flag= (String)hm.get("levelflag");
+          	 	int default_level=Integer.parseInt((String)hm.get("defaultlevel"));
+          	 	String qualify_cretirion= (String)hm.get("qualifycretirion");
+          	 	int qualify_q_count=Integer.parseInt((String)hm.get("qualifyqcount"));
+          		String success_text=(String)hm.get("successtext");
+          		String failure_text=(String)hm.get("failuretext");
+          		CampaignInfo campaignInfo = new CampaignInfo(camp_id, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text); 
+                CreateCampaignJavaBean createCampaignJavaBean =new CreateCampaignJavaBean();
+                boolean status = createCampaignJavaBean.registerCampaignInfo(campaignInfo);               
+                if(status==true)
+                {
+             	   getServletConfig().getServletContext().getRequestDispatcher("/RegistrationSuccess.jsp").forward(request,response);
+                }
+                else
+                {				
+             	   getServletConfig().getServletContext().getRequestDispatcher("/RegistrationFailure.jsp").forward(request,response);		
+                }
+               
+		  	}
+		  	catch (Exception ex)
+		  	{
+			  new ServletException("Servlet Exception:"+ex.getMessage());
+      	    }		
+	   }
+	   else
+      {
+		   request.setAttribute("message", "Sorry this Servlet only handles file upload request");
+		   return;
+       }     
+      
+	 }
+	 else
+	 {
+		 getServletConfig().getServletContext().getRequestDispatcher("/createsurvey.jsp").forward(request,response);
+	 }
+   }
 
-		 if(action.equals("cre"))
-		{
-			int camp_id=1;
-			int cust_id=Integer.parseInt(req.getParameter("cust_id"));
-			String camp_name=req.getParameter("camp_name");
-			//String camp_image=req.getParameter("camp_image");			
-			String camp_header=req.getParameter("camp_header");
-			String camp_st_page_text=req.getParameter("camp_st_page_text");
-			String camp_type=req.getParameter("camp_type");
-			String level_flag=req.getParameter("level_flag");
-			int default_level=Integer.parseInt(req.getParameter("default_level"));
-			String qualify_cretirion=req.getParameter("qualify_cretirion");
-			int qualify_q_count=Integer.parseInt(req.getParameter("qualify_q_count"));
-			String success_text=req.getParameter("success_text");
-			String failure_text=req.getParameter("failure_text");
-			
-			isMultipart = ServletFileUpload.isMultipartContent(req);
-			if(isMultipart)
-			{
-				FileItemFactory factory=new DiskFileItemFactory();
-				ServletFileUpload upload=new ServletFileUpload(factory);
-				try
-				{
-					List<FileItem> items=upload.parseRequest(req);
-					Iterator<FileItem> iter = items.iterator();
-					while (iter.hasNext())
-					{  
-					  FileItem item = iter.next();   
-					  if (item.isFormField())
-					  {      
-						 processFormField(item);   
-					  }
-					  else if (!item.isFormField())
-					  { 
-						  // Process a file upload
-					    String fieldName = item.getFieldName();  
-					    String fileName = item.getName();   
-					    String contentType = item.getContentType(); 
-					    boolean isInMemory = item.isInMemory();  
-					    long sizeInBytes = item.getSize();
-
-					//here you change the name of the uploaded file and then write it 
-
-					    String dir="./uploadedfiles";
-						File uploadedFile = new File(dir , "fileName");   
-						item.write(uploadedFile);
-
-
-					  }
-					}
-				}
-				catch (FileUploadException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-				
-			String camp_image="abc";
-			CampaignInfo campaignInfo=new CampaignInfo(camp_id, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text);
-			
-			System.out.println("befor SurveyJavaBean");
-			CreateCampaignJavaBean javaBean=new CreateCampaignJavaBean();
-			boolean status=javaBean.registerCampaignInfo(campaignInfo);
-			/*req.setAttribute("EMP_DATA",customerRecord);
-			RequestDispatcher rd=req.getRequestDispatcher("./test.jsp");
-			rd.forward(req,res);*/
-			if(status==true)
-			{
-				//req.setAttribute("EMP_DATA",customerRecord);
-				RequestDispatcher rd=req.getRequestDispatcher("./test.jsp");
-				//RequestDispatcher rd=req.getRequestDispatcher("./RegistrationSuccess.jsp");
-				rd.forward(req,res);	
-			}
-			else
-			{				
-				RequestDispatcher rd=req.getRequestDispatcher("./RegistrationFailure.jsp");
-				rd.forward(req,res);	
-			}
-		}
-	}
-
-	private void processFormField(FileItem item) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
-	{
-	
-	}
-
+   @Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException
+   {
+	   // TODO Auto-generated method stub
+	   super.doPost(request, response);
+   }
+ 
 }

@@ -21,6 +21,12 @@ public class CampaignInfo
 		
 	}
 
+	public CampaignInfo(int camp_id)
+	{
+		super();
+		this.camp_id = camp_id;
+	}
+	
 	public CampaignInfo(int camp_id, int cust_id, String camp_name,
 			String camp_image, String camp_header, String camp_st_page_text,
 			String camp_type, String level_flag, int default_level,

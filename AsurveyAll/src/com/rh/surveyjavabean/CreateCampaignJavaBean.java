@@ -16,6 +16,13 @@ public CreateCampaignDao campaignDao=null;
 		{System.out.println("error in CreateCampaignJavaBean Constructor");}
 	}
 	//business logic methods
+	public boolean validateCampaignInfo(CampaignInfo campaignInfo)
+	{
+		boolean status=false;
+		status=campaignDao.searchCampaignRecord(campaignInfo);
+		return status;
+	}
+	
 	public boolean registerCampaignInfo(CampaignInfo campaignInfo)
 	{
 		boolean status=false;

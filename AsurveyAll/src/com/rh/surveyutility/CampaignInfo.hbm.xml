@@ -4,7 +4,7 @@
 	<class name="com.rh.surveydto.CampaignInfo" table="wbs_campaign_info">
 		<id name="camp_id">
 			<column name="Camp_Id"/>
-			<generator class="assigned"/>
+			<generator class="increment"/>
 		</id>
 		<property name="cust_id">
 			<column name="Cust_Id"/>

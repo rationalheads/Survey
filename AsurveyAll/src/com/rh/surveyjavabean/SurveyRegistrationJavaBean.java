@@ -25,7 +25,10 @@ public class SurveyRegistrationJavaBean
 	public boolean registerCustomerRecord(CustomerRecord customerRecord)
 	{
 		boolean status=false;
+	
 		status=surveyDao.insertCustomerRecord(customerRecord);
+
 		return status;
 	}
+	
 }
