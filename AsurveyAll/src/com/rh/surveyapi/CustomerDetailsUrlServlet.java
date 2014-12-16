@@ -47,16 +47,13 @@ public class CustomerDetailsUrlServlet extends HttpServlet
 			if(status==true)
 			{					
 					HttpSession ses=req.getSession(true);
-					ses.setAttribute("cid", customerRecord.getCust_id());
-					/*req.setAttribute("CDATA",customerRecord);*/
+					ses.setAttribute("cid", customerRecord.getCust_id());			
 					CampaignInfo campaignInfo = new CampaignInfo(camp_id);
 					campaignInfo.setCamp_id(camp_id);
 					CreateCampaignJavaBean campaignJavaBean=new CreateCampaignJavaBean();
-					boolean status1=campaignJavaBean.validateCampaignInfo(campaignInfo);
-					//System.out.println("status");
+					boolean status1=campaignJavaBean.validateCampaignInfo(campaignInfo);				
 					if(status1==true)
-					{
-						//System.out.println("status1");
+					{					
 						req.setAttribute("CAMP_DATA",campaignInfo);
 						List<String> list = new ArrayList<String>();
 						list.add("1");
@@ -66,8 +63,7 @@ public class CustomerDetailsUrlServlet extends HttpServlet
 						res.setContentType("application/json");
 						res.setCharacterEncoding("UTF-8");
 						res.getWriter().write(json);
-					}
-				//out.write("1");
+					}				
 			}
 			else
 			{

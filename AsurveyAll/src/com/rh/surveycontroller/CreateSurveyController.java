@@ -21,31 +21,21 @@ import com.rh.surveyjavabean.CreateCampaignJavaBean;
 public class CreateSurveyController extends HttpServlet 
 {
 	HashMap<String, String> hm = new HashMap<String, String>();
+	HashMap<String, String> hm1 = new HashMap<String, String>();
 	private static final long serialVersionUID = 1L;
 	private final String UPLOAD_DIRECTORY = "C:/data";
 	String custid;
-	String campid;
-	String campimage;
-	String campname;    					
-	String campheader;
-	String campstpagetext;
-	String camptype;
-	String levelflag;
-	String defaultlevel;
-	String qualifycretirion;
-	String qualifyqcount;
-	String successtext;
-	String failuretext;	
+	//String campid;
+	String campimage;	
    @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    {
 	 String action=request.getParameter("action");
+	 CampaignInfo campaignInfo;
 	 HttpSession ses= request.getSession();
 	 custid =ses.getAttribute("cid").toString();
-	 campid="001";
-
-	//String campid =request.getParameter("camp_id").toString();
-	 
+	 //campid="003";
+	 	 
 	 if(action.equals("cre"))
 	 {
 	   if(ServletFileUpload.isMultipartContent(request)==true)
@@ -53,10 +43,10 @@ public class CreateSurveyController extends HttpServlet
 		  try {
                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
                for(FileItem item : multiparts)
-               {            	   	
-            	   
+               {            	   		   
                    if(!item.isFormField())
-                   {                                              
+                   {   
+                	   String campid = (String)hm1.get("campid");
                        String fname = new File(item.getName()).getName();                                             
                        System.out.println(fname);
                        String fileExtention =   fname.substring(fname.lastIndexOf('.'));
@@ -67,12 +57,12 @@ public class CreateSurveyController extends HttpServlet
                    }
                    else
                    {
-                	   hm.put(item.getFieldName(), item.getString());                	   
-                   }
-               } 
-               	int camp_id=Integer.parseInt(campid);
-               	int cust_id=Integer.parseInt(custid);
-               	String camp_image=campimage;
+                	   System.out.println("#"+item.getFieldName()+" "+item.getString()+"#");
+                	   hm.put(item.getFieldName(), item.getString());
+                	   hm1.put(item.getFieldName(), item.getString());
+                   }                   	     
+               }                	               	
+               	String campid = (String)hm.get("campid");
           	 	String camp_name = (String)hm.get("campname");
           	 	String camp_header= (String)hm.get("campheader");
           	 	String camp_st_page_text= (String)hm.get("campstpagetext");
@@ -83,7 +73,12 @@ public class CreateSurveyController extends HttpServlet
           	 	int qualify_q_count=Integer.parseInt((String)hm.get("qualifyqcount"));
           		String success_text=(String)hm.get("successtext");
           		String failure_text=(String)hm.get("failuretext");
-          		CampaignInfo campaignInfo = new CampaignInfo(camp_id, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text); 
+          		int camp_id=Integer.parseInt(campid);
+               	int cust_id=Integer.parseInt(custid);
+               	String camp_image=campimage;
+               	System.out.println("HM:"+hm);
+               	System.out.println(campid);
+          		campaignInfo = new CampaignInfo(camp_id, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text); 
                 CreateCampaignJavaBean createCampaignJavaBean =new CreateCampaignJavaBean();
                 boolean status = createCampaignJavaBean.registerCampaignInfo(campaignInfo);               
                 if(status==true)

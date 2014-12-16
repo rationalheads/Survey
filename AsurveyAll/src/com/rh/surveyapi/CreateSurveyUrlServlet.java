@@ -3,6 +3,7 @@ package com.rh.surveyapi;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,77 +25,87 @@ import com.rh.surveyjavabean.CreateCampaignJavaBean;
  */
 @WebServlet("/CreateSurveyUrlServlet")
 public class CreateSurveyUrlServlet extends HttpServlet {
+	HashMap<String, String> hm = new HashMap<String, String>();
 	private static final long serialVersionUID = 1L;
 	private final String UPLOAD_DIRECTORY = "C:/data";
-   
+	String custid;
+	String campid;
+	String campimage;		
    @Override
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    {
-	   response.setContentType("text/plain");
 	   PrintWriter out = response.getWriter();
 	   String action=request.getParameter("action");
-	   if(action.equals("cre"))
-	   {
-	   if(!ServletFileUpload.isMultipartContent(request)==true)
-	   {
-		   request.setAttribute("message", "Sorry this Servlet only handles file upload request");
-		   return;
-	   }
-	   else
-       {
+	   HttpSession ses= request.getSession();
+	   custid =ses.getAttribute("cid").toString();
+	   campid="001";
+
+	//String campid =request.getParameter("camp_id").toString();
+	 
+	 if(action.equals("cre"))
+	 {
+	   if(ServletFileUpload.isMultipartContent(request)==true)
+	   {		
 		  try {
                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-             
                for(FileItem item : multiparts)
-               {
+               {            	   	
+            	   
                    if(!item.isFormField())
-                   {   
-                	   HttpSession ses= request.getSession();
-                	   String custid =ses.getAttribute("cid").toString();
-                	   String campid="001";
-                       //String campid =request.getParameter("camp_id").toString();
-                                           
+                   {                                              
                        String fname = new File(item.getName()).getName();                                             
                        System.out.println(fname);
                        String fileExtention =   fname.substring(fname.lastIndexOf('.'));
                        String newfname = new StringBuffer(String.valueOf("Img_")).append(custid).append('_').append(campid).toString();
-                       String camp_image = new StringBuffer().append(newfname).append(fileExtention).toString();                        
-                       File uploadfile =  new File(UPLOAD_DIRECTORY + File.separator + camp_image);
+                       campimage = new StringBuffer().append(newfname).append(fileExtention).toString();                        
+                       File uploadfile =  new File(UPLOAD_DIRECTORY + File.separator + campimage);
                        item.write(uploadfile);
-                       System.out.println(camp_image);
-                       
-                       int cust_id=Integer.parseInt(custid);
-                       int camp_id=Integer.parseInt(campid);
-                       System.out.println(cust_id);
-                       System.out.println(camp_id);
-                       /*String camp_name=request.getParameter("camp_name");           					
-                       String camp_header=request.getParameter("camp_header");
-                       String camp_st_page_text=request.getParameter("camp_st_page_text");
-                       String camp_type=request.getParameter("camp_type");
-                       String level_flag=request.getParameter("level_flag");
-                       int default_level=Integer.parseInt(request.getParameter("default_level"));
-                       String qualify_cretirion=request.getParameter("qualify_cretirion");
-                       int qualify_q_count=Integer.parseInt(request.getParameter("qualify_q_count"));
-                       String success_text=request.getParameter("success_text");
-                       String failure_text=request.getParameter("failure_text");*/
-                	   
-                       System.out.println("campaininfo object");
-                       
-                       
-                       CampaignInfo campaignInfo = new CampaignInfo(camp_id); //(, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text); 
-                       CreateCampaignJavaBean createCampaignJavaBean =new CreateCampaignJavaBean();
-                       boolean status = createCampaignJavaBean.registerCampaignInfo(campaignInfo);
-                       
-                       if(status==true)
-                       {
-                    	   out.write("1");
-                       }
-                       else
-                       {
-                    	   out.write("0");
-                       }                      
                    }
-               }          
+                   else
+                   {
+                	   hm.put(item.getFieldName(), item.getString());                	   
+                   }
+               } 
+              	int camp_id=Integer.parseInt(campid);
+              	int cust_id=Integer.parseInt(custid);
+              	String camp_image=campimage;
+         	 	String camp_name = (String)hm.get("campname");
+         	 	String camp_header= (String)hm.get("campheader");
+         	 	String camp_st_page_text= (String)hm.get("campstpagetext");
+         	 	String camp_type= (String)hm.get("camptype");
+         	 	String level_flag= (String)hm.get("levelflag");
+         	 	int default_level=Integer.parseInt((String)hm.get("defaultlevel"));
+         	 	String qualify_cretirion= (String)hm.get("qualifycretirion");
+         	 	int qualify_q_count=Integer.parseInt((String)hm.get("qualifyqcount"));
+         		String success_text=(String)hm.get("successtext");
+         		String failure_text=(String)hm.get("failuretext");
+         		
+               	System.out.println("HashMap:"+hm);
+               	System.out.println("cust_id:"+cust_id);
+               	System.out.println("camp_id:"+camp_id);
+               	System.out.println("camp_image:"+camp_image);
+               	System.out.println("camp_name:"+camp_name);
+               	System.out.println("camp_header:"+camp_header);
+               	System.out.println("camp_st_page_text:"+camp_st_page_text);
+               	System.out.println("camp_type:"+camp_type);
+               	System.out.println("level_flag:"+level_flag);
+               	System.out.println("default_level:"+default_level);
+               	System.out.println("qualify_cretirion:"+qualify_cretirion);
+               	System.out.println("qualify_q_count:"+qualify_q_count);
+               	System.out.println("success_text:"+success_text);
+               	System.out.println("failure_text:"+failure_text);
+         		CampaignInfo campaignInfo = new CampaignInfo(camp_id, cust_id, camp_name, camp_image, camp_header, camp_st_page_text, camp_type, level_flag, default_level, qualify_cretirion, qualify_q_count, success_text, failure_text); 
+         		CreateCampaignJavaBean createCampaignJavaBean =new CreateCampaignJavaBean();
+         		boolean status = createCampaignJavaBean.registerCampaignInfo(campaignInfo);               
+                if(status==true)
+                 {
+                	  out.write("1");
+                 }
+                 else
+                 {
+                 	   out.write("0");
+                 }
+                      
 		  	}
 		  	catch (Exception ex)
 		  	{

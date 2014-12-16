@@ -31,24 +31,27 @@ public class CreateCampaignDao
 				List list=query.list();
 				ArrayList al=new ArrayList(list);
 				System.out.println(al.size());
-				if(al.size()==0)
-				{										
-					int camp_id=1;
-					campaignInfo.setCamp_id(camp_id);
-					status=true;
-				}
-				else if(al.size()>0)
+				if(al.size()!=0)
 				{
-					int cid = (int) al.get(0);
-					if(cid>0)
+					String campid= String.valueOf(al.get(0));
+					if(campid!=null)
 					{
-						cid=cid+1;						
-						campaignInfo.setCamp_id(cid);
+						int camp_id = Integer.parseInt(campid);
+						camp_id=camp_id+1;
+						campaignInfo.setCamp_id(camp_id);
+						status=true;					
 					}
-					status=true;
+					else
+					{
+						int camp_id=1;								
+						campaignInfo.setCamp_id(camp_id);
+						status=true;
+					}
 				}
 				else
+				{
 					campaignInfo=null;
+				}
 			}
 			catch(HibernateException he)
 			{
